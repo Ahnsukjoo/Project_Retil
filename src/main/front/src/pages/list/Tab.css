@@ -32,7 +32,7 @@
   text-align: center;
   cursor: pointer;
 }
-
+/*탭 메뉴 박스 버튼*/
 .tab-menu .submenu.focused {
   background-color: rgb(255, 255, 255);
   color: rgb(21, 20, 20);
@@ -58,4 +58,10 @@
 
 .submenubutton:hover {
   background-color: rgb(127, 130, 130);
+}
+.list-item {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
 }
