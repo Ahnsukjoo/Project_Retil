@@ -8,13 +8,13 @@
   background-color: #f18c8c;
   border: 1px solid #0a3ae6;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* 여러 줄로 탭을 감싸기 위해 flex-wrap 사용 */
   justify-content: center;
   margin: 0 auto;
   align-items: center;
   margin-top: 20px;
   padding: 0;
-  overflow: hidden; /* 숨긴다 */
+  overflow: hidden; /* 탭이 확장되기 전에는 숨김 */
   transition: max-height 0.3s ease-in-out; /* 애니메이션 효과 */
 }
 
