@@ -1,4 +1,4 @@
-package com.project.Retil.til.dto;
+package com.project.Retil.group.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
