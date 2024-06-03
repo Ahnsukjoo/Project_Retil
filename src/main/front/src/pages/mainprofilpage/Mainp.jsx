@@ -14,7 +14,7 @@ function Mainp() {
       <nav id="mainnav" className="mainnav">
         <ul className="nav__mainmenu">
           <li>
-            <Link to="#retil" className="nav__menu--focused">
+            <Link to="/main" className="nav__menu--focused">
               RETIL
             </Link>
           </li>
@@ -38,7 +38,7 @@ function Mainp() {
         <Link to={"/memo"}>
           <button className="nav_writebutton">작성하기</button>
         </Link>
-        <button onClick={onClickHandle}></button>
+        <button className = "logout_button" onClick={onClickHandle}></button>
       </nav>
     </div>
   );

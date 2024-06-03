@@ -16,8 +16,9 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "MEDIUMTEXT")
     private String content;
+
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "til_id")

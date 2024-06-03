@@ -26,7 +26,7 @@ public class ChatGPTService {
     }
 
     public List<Question> generateQuestions(Til til) {
-        String prompt = "Create a question based on the following content: " + til.getContent();
+        String prompt = "Create a two question based on the following content(한국어): " + til.getContent();
 
         try {
             OpenAIRequest request = new OpenAIRequest(prompt);

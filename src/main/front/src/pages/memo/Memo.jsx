@@ -1,12 +1,14 @@
 import "./Memo.css";
 import { useState, useEffect } from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
+import { EditorState, convertToRaw,convertFromRaw } from "draft-js";
+import {Link} from "react-router-dom"
 import M_Category from "./M_Category";
 import M_CategorySelect from "./M_CategorySelect";
 import M_TitleInput from "./M_TitleInput";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import axios from "axios";
+
 const user_id = localStorage.getItem("user_id");
 const token = localStorage.getItem("token");
 
@@ -27,11 +29,20 @@ function Memo() {
     }
   };
 
+  const extractContent = (contentState) => {
+    const raw = convertToRaw(contentState);
+    const extracted = raw.blocks.map(block => ({
+      key: block.key,
+      text: block.text,
+      type: block.type,
+    }));
+    return extracted;
+  };
 
   const saveContent = () => {
     const contentState = editorState.getCurrentContent();
-    const raw = convertToRaw(contentState);
-    localStorage.setItem("study", JSON.stringify(raw, null, 2));
+    const extractedContent = extractContent(contentState);
+    localStorage.setItem("study", JSON.stringify(extractedContent));
   };
 
   const formatTime = (seconds) => {
@@ -56,15 +67,14 @@ function Memo() {
 
     try {
       const contentState = editorState.getCurrentContent();
-      const rawContentState = convertToRaw(contentState);
-      const content = JSON.stringify(rawContentState, null, 2);
+      const extractedContent = extractContent(contentState);
 
       const response = await axios.post(
           `http://localhost:8080/til/${user_id}/write`,
           {
-            subjectName: "folder1", // 여기서 실제 데이터로 변경할 것
-            title: title, // 여기서 실제 데이터로 변경할 것
-            content: content,
+            subjectName: "국어", // 실제 데이터로 변경
+            title: title, // 실제 데이터로 변경
+            content: JSON.stringify(extractedContent),
             time: studyTime * 1000
           },
           {
@@ -93,7 +103,19 @@ function Memo() {
   useEffect(() => {
     const raw = localStorage.getItem("study");
     if (raw) {
-      const contentState = convertFromRaw(JSON.parse(raw));
+      const extractedContent = JSON.parse(raw);
+      const contentState = convertFromRaw({
+        blocks: extractedContent.map(block => ({
+          key: block.key,
+          text: block.text,
+          type: block.type,
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        })),
+        entityMap: {},
+      });
       const newEditorState = EditorState.createWithContent(contentState);
       setEditorState(newEditorState);
     }
@@ -104,9 +126,11 @@ function Memo() {
   return (
       <div className="Memo">
         <div className="Memo_form">
+          <Link to={"/main"}>
           <p>
             <img src="./images/ico/retil.png" alt="Memo" />
           </p>
+          </Link>
           <button onClick={saveContent} className="temporaryStorage">
             임시저장
           </button>
@@ -114,7 +138,7 @@ function Memo() {
           <div className="memo_top">
             <M_Category />
             <M_CategorySelect />
-            <M_TitleInput title = {title} setTitle = {setTitle}/>
+            <M_TitleInput title={title} setTitle={setTitle} />
           </div>
           <div className="editorStyle">
             <Editor
