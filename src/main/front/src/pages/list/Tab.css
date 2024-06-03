@@ -1,0 +1,68 @@
+.tabul {
+  margin-top: 70px;
+}
+
+.tab-menu {
+  width: 900px;
+  color: rgb(232, 234, 237);
+  background-color: #f18c8c;
+  border: 1px solid #0a3ae6;
+  display: flex;
+  flex-wrap: wrap; /* 여러 줄로 탭을 감싸기 위해 flex-wrap 사용 */
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0;
+  overflow: hidden; /* 탭이 확장되기 전에는 숨김 */
+  transition: max-height 0.3s ease-in-out; /* 애니메이션 효과 */
+}
+
+.tab-menu.show-more {
+    max-height: none; /* 확장 시 높이를 제한하지 않음 */
+}
+
+.tab-menu .submenu {
+  flex: 1 0 20%;
+  padding: 10px;
+  font-size: 15px;
+  height: 25px; /* 기본 높이 */
+  transition: 0.5s;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  cursor: pointer;
+}
+/*탭 메뉴 박스 버튼*/
+.tab-menu .submenu.focused {
+  height: 50px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(21, 20, 20);
+}
+
+.tab-menu.show-more .submenu {
+  height: 80px; /* 확장 시 높이 */
+}
+
+.desc {
+  text-align: center;
+}
+
+.submenubutton {
+  width: 70px;
+  height: 30px;
+  background-color: rgb(190, 194, 193);
+  color: black;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.submenubutton:hover {
+  background-color: rgb(127, 130, 130);
+}
+.list-item {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+}
