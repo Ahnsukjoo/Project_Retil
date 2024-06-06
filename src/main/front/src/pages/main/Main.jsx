@@ -2,6 +2,7 @@ import "./Main.css";
 import Mainp from "../mainprofilpage/Mainp";
 import MainProfile from "./MainProfile";
 import MainGraph from "./MainGraph";
+import Question from "../question/Question.jsx"
 const Main = () => {
   return (
     <div className="main_content">
@@ -18,6 +19,9 @@ const Main = () => {
           <MainProfile />
         </div>
       </div>
+        <div>
+        <Question/>
+        </div>
     </div>
   );
 };

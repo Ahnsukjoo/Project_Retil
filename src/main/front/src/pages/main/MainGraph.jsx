@@ -61,7 +61,7 @@ function MainGraph() {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis domain={[0, 1]} />
+          <YAxis domain={[0, 100]} />
           <Tooltip />
           <Legend />
           <Bar dataKey="리스트" fill="#8884d8" />

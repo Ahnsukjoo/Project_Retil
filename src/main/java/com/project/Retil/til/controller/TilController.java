@@ -52,7 +52,15 @@ public class TilController {
     public ResponseEntity<User_Rank> tempSave(@PathVariable Long user_id,
                                               @RequestBody TempSaveDTO temp) {
         User_Information user = userRepository.findById(user_id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         TilSubject subject = tilService.searchSubject(temp.getSubjectName(), user);
+        if (subject == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         User_Rank userRank = tilService.timeSave(user, temp.getTime(), subject);
         return (userRank != null) ?
                   ResponseEntity.status(HttpStatus.OK).body(userRank) :
@@ -104,4 +112,9 @@ public class TilController {
                   ResponseEntity.status(HttpStatus.OK).body(addedSubject) :
                   ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+    @GetMapping("/write")
+    public List<String> showSubjectList(@PathVariable Long user_id) {
+        return tilService.showSubjectList(user_id);
+    }
 }
+

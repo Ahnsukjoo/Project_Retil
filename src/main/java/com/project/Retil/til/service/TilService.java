@@ -32,4 +32,5 @@ public interface TilService {
     TilSubject addSubject(Long user_id, String subjectName, String color);
 
     TilSubject searchSubject(String subjectName, User_Information user);
+    ArrayList<String> showSubjectList(Long user_id);
 }

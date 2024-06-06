@@ -1,18 +1,38 @@
 import "./MainProfile.css";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import MainProgress from "./MainProgress";
 import TimeSettingModal from "./TimeSettingModal"; // 모달 컴포넌트 임포트
+import {getTier} from "../../../tier/get_tier.js";
+import axios from "axios";
 
+const token = localStorage.getItem("token");
+const user_id = localStorage.getItem("user_id");
 const MainProfile = () => {
   const [tier, setTier] = useState("");
   const [group, setGroup] = useState("");
-  const [hour, setHour] = useState(19); //목표 시간
+  const [hour, setHour] = useState(0); //목표 시간
   const [minute, setMinute] = useState(0); // 목표 분
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
-  const [actualStudyTime, setActualStudyTime] = useState(6); // 실제 공부한 시간 (테스트용)
+  const [actualStudyTime, setActualStudyTime] = useState(0); // 실제 공부한 시간 (테스트용)
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+    //
+    // useEffect(() => {
+    //     const fetchUserData = async () => {
+    //         try {
+    //             const response = await axios.get(`http://localhost:8080/users/main/${user_id}`,{
+    //                 headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //
+    //             }
+    //                 }
+    //                 );
+    //         }
+    //     }
+    // }, []);
+    //
+
 
   const handleSave = (newHour, newMinute) => {
     setHour(newHour);
@@ -52,7 +72,7 @@ const MainProfile = () => {
       <div className="division_line"></div>
       <div className="profile_Tier">
         {" "}
-        <img src="./images/ico/bronze.jpg" />
+        <img src={getTier(1)} />
       </div>
       <div className="profile_group"></div>
       <div className="division_line2"></div>

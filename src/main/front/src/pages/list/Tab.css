@@ -4,7 +4,7 @@
 
 .tab-menu {
   width: 900px;
-  color: rgb(232, 234, 237);
+  color: red;
   background-color: #f18c8c;
   border: 1px solid #0a3ae6;
   display: flex;

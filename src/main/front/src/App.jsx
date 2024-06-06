@@ -19,7 +19,7 @@ import Tier from "./pages/tier/Tier";
 import Menubar from "./pages/menubar/Menubar";
 import Main from "./pages/main/Main";
 import Board from "./pages/group/Board";
-
+import Question from "./pages/question/Question.jsx";
 import MockList from "./pages/main/MockList";
 
 
@@ -58,6 +58,7 @@ function App() {
         <Route path="main" element={<Main />} />
         <Route path="group" element={<Board />} />
         <Route path="mockList" element={<MockList />} />
+        <Route path="question" element={<Question/>}/>
       </Routes>
     </div>
       </>

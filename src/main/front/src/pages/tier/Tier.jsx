@@ -1,12 +1,18 @@
+import React, { useState, useEffect } from "react";
 import "./Tier.css";
 import MainP from "../mainprofilpage/Mainp";
 import Progressbar from "./Progressbar";
 import Ranking from "./Ranking";
-import { useState, useEffect } from "react";
-//여기부터는 목업 데이터
+import {getTier} from "../../../tier/get_tier.js";
+
+const token = localStorage.getItem("token");
+const user_id = localStorage.getItem("user_id");
+
+// 목업 데이터
 const now = new Date();
 const sixHoursLater = new Date(now.getTime() + 6 * 60 * 60 * 1000);
 const fourHoursLater = new Date(now.getTime() + 4 * 60 * 60 * 1000);
+const int = 1; // 임시로 넣은 정수값
 const mData = [
   {
     id: 1,
@@ -14,7 +20,6 @@ const mData = [
     time: sixHoursLater.getTime(),
     rank: 1,
   },
-
   {
     id: 2,
     nickname: "뽕따",
@@ -28,7 +33,7 @@ const mData = [
     rank: 2,
   },
   {
-    id: 3,
+    id: 4,
     nickname: "똥쟁이",
     time: sixHoursLater.getTime(),
     rank: 1,
@@ -42,9 +47,6 @@ const myData = {
   rank: 1,
 };
 
-//여기까지
-
-// -------------------------
 function Tier() {
   const [myRank, setMyRank] = useState(myData);
   const [rank, setRank] = useState([]);
@@ -62,8 +64,8 @@ function Tier() {
   const utcTime = new Date().getTime();
   const options = { year: "numeric", month: "numeric", day: "numeric" };
   const koreaTime = new Date(utcTime + 9 * 60 * 60 * 1000).toLocaleString(
-    "ko-KR",
-    options
+      "ko-KR",
+      options
   );
 
   const onChangeSearch = (e) => {
@@ -71,43 +73,53 @@ function Tier() {
   };
 
   const getFilter = () => {
-    // 이 함수가 필터링 된 todos를 반환해 줘야하니까
     if (search === "") {
       return rank;
     }
     return rank.filter((rank) => {
       return rank.nickname.toLowerCase().includes(search.toLowerCase());
-    }); // 화살표 함수에 중괄호 치면 return 꼭 해줘야함 이시끼야
+    });
   };
 
   const filteredRank = getFilter();
 
   return (
-    <div className="tier">
-      <MainP />
+      <>
+        <MainP />
 
-      <div className="myTier">
-        <div className="my_rank">{myRank.rank}등</div>
-        <div className="my_tier">대충 티어 아이콘임</div>
-        <div className="my_progress">
-          <Progressbar />
+        <div className="myTier">
+          <div className="Tname">송이님!</div>
+          <div className="oo">
+            다음 레벨까지 oo시간
+            <br />
+            남았습니다!
+          </div>
+          <div className="rank_time">07:00/10:00</div>
+          <div className="my_rank">{myRank.rank}등</div>
+          <img className="Tiericon" src={getTier(int)} alt="Tier" />
+          <div className="my_progress">
+            <Progressbar />
+          </div>
+          <div className="my_studyTime">총 공부량 (누적시간) {myRank.time}</div>
         </div>
-        <div className="my_studyTime">총 공부량 {myRank.time}</div>
-      </div>
-
-      <p>순위</p>
-      <div className="date">최근 업데이트 {koreaTime}</div>
-      <input
-        value={search}
-        onChange={onChangeSearch}
-        placeholder="검색어를 입력하세요"
-      ></input>
-      <div className="rank_wrapper">
-        {filteredRank.map((rank) => {
-          return <Ranking key={rank.id} {...rank} />;
-        })}
-      </div>
-    </div>
+        <div className="aaaa">
+          <div className="sun">순위</div>
+          <div className="date">최근 업데이트 {koreaTime}</div>
+          <div className="bb">
+            <input
+                value={search}
+                onChange={onChangeSearch}
+                className="input_search"
+                placeholder="검색어를 입력하세요"
+            ></input>
+          </div>
+          <div className="rank_wrapper">
+            {filteredRank.map((rank) => {
+              return <Ranking key={rank.id} {...rank} />;
+            })}
+          </div>
+        </div>
+      </>
   );
 }
 

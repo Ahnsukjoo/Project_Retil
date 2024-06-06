@@ -22,7 +22,7 @@ function Mainp() {
             <Link to="/list">List</Link>
           </li>
           <li>
-            <Link to="#todaymoon">오늘의 문제</Link>
+            <Link to="/question">오늘의 문제</Link>
           </li>
           <li>
             <Link to="/tier">티어</Link>
